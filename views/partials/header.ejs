@@ -25,24 +25,16 @@
       </div>
     </div>
   </nav>
-
   <div class="container">
-    <% 
-      // Normalize messages: could be undefined, string, or array. Convert to arrays and filter empties.
-      const sMsgs = (typeof success_msg === 'string' && success_msg.trim()) ? [success_msg] : (Array.isArray(success_msg) ? success_msg : []);
-      const eMsgs = (typeof error_msg === 'string' && error_msg.trim()) ? [error_msg] : (Array.isArray(error_msg) ? error_msg : []);
-      const passportErr = (typeof error === 'string' && error.trim()) ? [error] : (Array.isArray(error) ? error : []);
-      const allMsgsExist = (sMsgs.length + eMsgs.length + passportErr.length) > 0;
-    %>
+    <% if (success_msg || error_msg || error) { %>
+  <% if (success_msg) { %>
+    <div class="alert alert-success"><%= success_msg %></div>
+  <% } %>
+  <% if (error_msg) { %>
+    <div class="alert alert-danger"><%= error_msg %></div>
+  <% } %>
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+<% } %>
 
-    <% if (allMsgsExist) { %>
-      <% sMsgs.forEach(function(m) { %>
-        <div class="alert alert-success"><%= m %></div>
-      <% }) %>
-      <% eMsgs.forEach(function(m) { %>
-        <div class="alert alert-danger"><%= m %></div>
-      <% }) %>
-      <% passportErr.forEach(function(m) { %>
-        <div class="alert alert-danger"><%= m %></div>
-      <% }) %>
-    <% } %>
