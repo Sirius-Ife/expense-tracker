@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+<h2>Dashboard</h2>
+<canvas id="categoryChart" width="400" height="200"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labels = <%= labels %>;
+  const data = <%= data %>;
+  const ctx = document.getElementById('categoryChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels,
+      datasets: [{ data }]
+    }
+  });
+</script>
+<%- include('partials/footer') %>
